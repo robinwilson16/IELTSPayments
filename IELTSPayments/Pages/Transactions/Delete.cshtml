@@ -1,0 +1,239 @@
+﻿@page
+@model IELTSPayments.Pages.Transactions.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>IELTSTransaction</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.PaymentResponse)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.PaymentResponse)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.PaymentReference)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.PaymentReference)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.BritishCouncilRef)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.BritishCouncilRef)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.PaymentDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.PaymentDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.PaymentStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.PaymentStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.TransactionGUID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.TransactionGUID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.Forename)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.Forename)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.Surname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.Surname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.FeeExam)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.FeeExam)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.FeeDuplicateCertificate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.FeeDuplicateCertificate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.FeeMockExam1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.FeeMockExam1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.FeeMockExam2)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.FeeMockExam2)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.FeeTransfer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.FeeTransfer)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.FeeBooks)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.FeeBooks)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.TipsClass)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.TipsClass)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.FeeTotal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.FeeTotal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.SystemUsed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.SystemUsed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.ReportType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.ReportType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.RequiredEmails)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.RequiredEmails)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.SentEmails)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.SentEmails)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.IsPaymentDiscrepancy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.IsPaymentDiscrepancy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailsRemaining)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailsRemaining)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailRequiredDuplicateCert)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailRequiredDuplicateCert)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailSentDuplicateCert)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailSentDuplicateCert)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailRequiredTransfer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailRequiredTransfer)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailSentTransfer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailSentTransfer)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailRequiredPractice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailRequiredPractice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailSentPractice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailSentPractice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailRequiredMock)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailRequiredMock)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailSentMock)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailSentMock)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EnquiryOnResult)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EnquiryOnResult)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.EmailProgress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.EmailProgress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.PaymentExpected)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.PaymentExpected)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.PaymentMade)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.PaymentMade)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IELTSTransaction.PaymentDiscrepancy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IELTSTransaction.PaymentDiscrepancy)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="IELTSTransaction.PaymentID" />
+        <input type="hidden" asp-for="IELTSTransaction.TransactionID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

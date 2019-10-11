@@ -1,0 +1,227 @@
+/*****************************************
+* Lists IELTS transactions for the       *
+* payment report                         *
+* Ensure filtering on specific amounts   *
+* of money as may need reviewing         *
+******************************************/
+
+CREATE PROCEDURE [dbo].[SPR_IEL_Transactions]
+	@ReportType NCHAR(1),
+	@BritishCouncilRef NVARCHAR(50),
+	@Email NVARCHAR(500),
+	@PaymentDateFrom DATE,
+	@PaymentDateTo DATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT
+		PaymentID = PAY.id, --id
+		TransactionID = COALESCE ( TRAN1.id, TRAN2.id), --trans_id
+		PaymentResponse = PAY.barclays_response, --barclays_response
+		PaymentReference = PAY.reference_id, --transation_ref
+		BritishCouncilRef = COALESCE ( '66_' + TRAN2.reference_id, PAY.reference_id ), --british_council_ref
+		PaymentDate = CAST ( PAY.TIMESTAMP AS DATE ), --TIMESTAMP
+		PaymentStatus = PAY.status, --STATUS
+		TransactionGUID = COALESCE ( TRAN1.ref_guid, TRAN2.ref_guid), --ref_guid,
+		Forename = RTRIM ( UPPER ( LEFT ( COALESCE ( TRAN2.firstname, TRAN1.firstname ), 1 ) ) + LOWER ( SUBSTRING ( COALESCE ( TRAN2.firstname, TRAN1.firstname ), 2, LEN ( COALESCE ( TRAN2.firstname, TRAN1.firstname ) ) ) ) ), --firstname
+		Surname = RTRIM ( UPPER ( LEFT ( COALESCE ( TRAN2.surname, TRAN1.surname ), 1 ) ) + LOWER ( SUBSTRING ( COALESCE ( TRAN2.surname, TRAN1.surname), 2, LEN ( COALESCE ( TRAN2.surname, TRAN1.surname ) ) ) ) ), --surname
+		Email = COALESCE ( PAY.email, TRAN2.email, TRAN1.email ), --email,
+		FeeExam = CAST ( COALESCE ( TRAN2.ieltsexam, 0 ) AS DECIMAL(18, 2) ), --ielts_exam,
+		FeeDuplicateCertificate = CAST ( COALESCE ( TRAN2.duplicate_certificate, 0 ) AS DECIMAL(18, 2) ), --duplicate_cert,
+		FeeMockExam1 = CAST ( COALESCE ( TRAN2.mockexam1, 0 ) AS DECIMAL(18, 2) ), --mocks_exam_1,
+		FeeMockExam2 = CAST ( COALESCE ( TRAN2.mockexam2, 0 ) AS DECIMAL(18, 2) ), --mocks_exam_2,
+		FeeTransfer = CAST ( COALESCE ( TRAN2.transfer_fees, 0 ) AS DECIMAL(18, 2) ), --transfer_fees,
+		FeeBooks = CAST ( COALESCE ( TRAN2.refbooks, 0 ) AS DECIMAL(18, 2) ), --book,
+		TipsClass = CAST ( COALESCE ( TRAN2.tipsclass, 0 ) AS DECIMAL(18, 2) ), --tipsclass,
+		FeeTotal = CAST ( COALESCE ( PAY.total, TRAN2.payment ) AS DECIMAL(18, 2) ), --total_card_payment,
+		SystemUsed = 
+			CASE 
+				WHEN TRAN1.id IS NOT NULL
+					THEN 'Legacy System'
+				WHEN TRAN2.id IS NOT NULL
+					THEN 'New System'
+				ELSE 'ERROR'
+			END, --system,
+		ReportType = 
+			CASE 
+				--Pre-test
+				WHEN 
+					COALESCE ( TRAN2.mockexam1, 0 ) > 0
+					OR COALESCE ( TRAN2.mockexam2, 0 ) > 0
+					OR COALESCE ( TRAN2.refbooks, 0 ) > 0
+					THEN 'b'
+				
+				--Post-test
+				WHEN 
+					COALESCE ( TRAN2.transfer_fees, 0 ) > 0
+					OR COALESCE ( TRAN2.duplicate_certificate, 0 ) > 0
+					OR COALESCE ( TRAN2.enquiryonresult, 0 ) > 0
+					THEN 'c'
+				
+				--IELTS
+				ELSE 'a'
+			END, --report_type
+		RequiredEmails = 
+			COALESCE ( 
+				CASE WHEN TRAN2.Duplicate_Certificate > 0 THEN 1 ELSE 0 END
+				+ CASE WHEN TRAN2.Transfer_fees > 0 THEN 1 ELSE 0 END
+				+ CASE WHEN TRAN2.refbooks > 0 THEN 1 ELSE 0 END
+				+ CASE WHEN TRAN2.mockexam1 > 0 THEN 1 ELSE 0 END 
+				+ CASE WHEN TRAN2.mockexam2 > 0 THEN 1 ELSE 0 END
+			, 0 ), --requiredemails,
+		SentEmails = 
+			COALESCE ( 
+				EMAILS.duplicateCert
+				+ EMAILS.transfer
+				+ EMAILS.PracticeMaterial
+				+ EMAILS.MockTest
+			, 0 ), --actualemailssent,
+		IsPaymentDiscrepancy =
+			CAST ( 
+				CASE
+					WHEN COALESCE ( TRAN2.payment, 0 )
+					=
+					( 
+						CAST ( COALESCE ( TRAN2.ieltsExam, 0 ) AS DECIMAL ( 8, 2 ) )
+						+ COALESCE ( TRAN2.duplicate_Certificate, 0 )
+						+ COALESCE ( TRAN2.transfer_fees, 0 )
+						+ COALESCE ( TRAN2.refbooks, 0 )
+						+ COALESCE ( TRAN2.mockexam1, 0 )
+						+ COALESCE ( TRAN2.mockexam2, 0 ) 
+					) THEN 0
+					ELSE 1
+				END
+			AS BIT ),--paymentdecrepency,
+		EmailsRemaining = 
+			COALESCE ( 
+				CASE WHEN TRAN2.Duplicate_Certificate > 0 THEN 1 ELSE 0 END
+				+ CASE WHEN TRAN2.Transfer_fees > 0 THEN 1 ELSE 0 END
+				+ CASE WHEN TRAN2.refbooks > 0 THEN 1 ELSE 0 END
+				+ CASE WHEN TRAN2.mockexam1 > 0 THEN 1 ELSE 0 END 
+				+ CASE WHEN TRAN2.mockexam2 > 0 THEN 1 ELSE 0 END
+			, 0 )
+			- 
+			COALESCE ( 
+				EMAILS.duplicateCert
+				+ EMAILS.transfer
+				+ EMAILS.PracticeMaterial
+				+ EMAILS.MockTest
+			, 0 ), --emailsremaining,
+		EmailRequiredDuplicateCert = CASE WHEN TRAN2.Duplicate_Certificate > 0 THEN 1 ELSE 0 END, --requiredduplicatecert,
+		EmailSentDuplicateCert = COALESCE ( EMAILS.duplicateCert, 0 ), --emailedduplicatecert,
+		EmailRequiredTransfer = CASE WHEN TRAN2.Transfer_fees > 0 THEN 1 ELSE 0 END, --requiredtransfer,
+		EmailSentTransfer = COALESCE ( EMAILS.transfer, 0 ), --emailedtransfer,
+		EmailRequiredPractice = CASE WHEN TRAN2.refbooks > 0 THEN 1 ELSE 0 END, --requiredpractice,
+		EmailSentPractice = COALESCE ( EMAILS.PracticeMaterial, 0 ), --emailedpracticematerial,
+		EmailRequiredMock = 
+			CASE WHEN TRAN2.mockexam1 > 0 THEN 1 ELSE 0 END 
+			+ CASE WHEN TRAN2.mockexam2 > 0 THEN 1 ELSE 0 END, --requiredmock,
+		EmailSentMock = COALESCE ( EMAILS.MockTest, 0 ), --emailedmocktest,
+		EnquiryOnResult = COALESCE ( TRAN2.enquiryonresult, 0 ), --enquiryonresult
+		EmailProgress =
+			CASE
+				WHEN PAY.status = 'DECLINED' THEN 'N/A'
+				WHEN 
+					COALESCE ( 
+						EMAILS.duplicateCert
+						+ EMAILS.transfer
+						+ EMAILS.PracticeMaterial
+						+ EMAILS.MockTest
+					, 0 )
+					=
+					COALESCE ( 
+						CASE WHEN TRAN2.Duplicate_Certificate > 0 THEN 1 ELSE 0 END
+						+ CASE WHEN TRAN2.Transfer_fees > 0 THEN 1 ELSE 0 END
+						+ CASE WHEN TRAN2.refbooks > 0 THEN 1 ELSE 0 END
+						+ CASE WHEN TRAN2.mockexam1 > 0 THEN 1 ELSE 0 END 
+						+ CASE WHEN TRAN2.mockexam2 > 0 THEN 1 ELSE 0 END
+					, 0 ) THEN 'Comp'
+				ELSE
+					CAST ( COALESCE ( 
+						EMAILS.duplicateCert
+						+ EMAILS.transfer
+						+ EMAILS.PracticeMaterial
+						+ EMAILS.MockTest
+					, 0 ) AS VARCHAR(10) )
+					+ '/'
+					+ CAST ( COALESCE ( 
+						CASE WHEN TRAN2.Duplicate_Certificate > 0 THEN 1 ELSE 0 END
+						+ CASE WHEN TRAN2.Transfer_fees > 0 THEN 1 ELSE 0 END
+						+ CASE WHEN TRAN2.refbooks > 0 THEN 1 ELSE 0 END
+						+ CASE WHEN TRAN2.mockexam1 > 0 THEN 1 ELSE 0 END 
+						+ CASE WHEN TRAN2.mockexam2 > 0 THEN 1 ELSE 0 END
+					, 0 ) AS VARCHAR(10) )
+			END,
+		PaymentExpected = 
+		CAST ( COALESCE ( TRAN2.ieltsExam, 0 ) AS DECIMAL ( 8, 2 ) )
+			+ COALESCE ( TRAN2.duplicate_Certificate, 0 )
+			+ COALESCE ( TRAN2.transfer_fees, 0 )
+			+ COALESCE ( TRAN2.refbooks, 0 )
+			+ COALESCE ( TRAN2.mockexam1, 0 )
+			+ COALESCE ( TRAN2.mockexam2, 0 ), --NEW - move up when possible
+		PaymentMade = COALESCE ( TRAN2.payment, 0 ), --NEW - move up when possible
+		PaymentDiscrepancy = 
+			CAST (
+				COALESCE ( TRAN2.payment, 0 )
+				-
+				( 
+					CAST ( COALESCE ( TRAN2.ieltsExam, 0 ) AS DECIMAL ( 8, 2 ) )
+					+ COALESCE ( TRAN2.duplicate_Certificate, 0 )
+					+ COALESCE ( TRAN2.transfer_fees, 0 )
+					+ COALESCE ( TRAN2.refbooks, 0 )
+					+ COALESCE ( TRAN2.mockexam1, 0 )
+					+ COALESCE ( TRAN2.mockexam2, 0 ) 
+				)
+			AS DECIMAL ( 8, 2 ) ) --NEW - move up when possible
+		INTO #Transactions
+	FROM activa.payments.dbo.barclays_response_tbl PAY
+	LEFT JOIN activa.payments.dbo.transactions_tbl TRAN1
+		ON '66_' + TRAN1.reference_id = PAY.reference_id
+	LEFT JOIN activa.payments.dbo.transactions_tbl TRAN2 
+		ON CAST ( TRAN2.ref_guid AS VARCHAR(255) ) = PAY.reference_id
+	LEFT JOIN (
+		SELECT
+			TransactionID = EMAIL.at_primary_key,
+			EmailID = EMAIL.audit_trail_id,
+			EmailType = EMAIL.at_new_value
+		FROM activa.payments.dbo.email_audit_trail_tbl EMAIL
+	) EML
+	PIVOT (
+		COUNT ( EML.EmailID )
+		FOR
+		EML.EmailType IN ( [MockTest], [PracticeMaterial], [duplicateCert], [transfer] )
+	) EMAILS
+		ON EMAILS.TransactionID = TRAN2.id
+	WHERE
+		COALESCE ( TRAN1.id, TRAN2.id ) IS NOT NULL
+		
+	SELECT TOP 50 *
+	FROM #Transactions TRN
+	WHERE
+		TRN.ReportType = COALESCE ( @ReportType, TRN.ReportType )
+		AND TRN.BritishCouncilRef = COALESCE ( @BritishCouncilRef, TRN.BritishCouncilRef )
+		AND TRN.Email = COALESCE ( @Email, TRN.Email )
+		AND
+			CASE
+				WHEN @PaymentDateFrom IS NULL THEN 1
+				ELSE
+					CASE
+						WHEN TRN.PaymentDate >= @PaymentDateFrom THEN 1
+						ELSE 0
+					END
+			END = 1
+		AND
+			CASE
+				WHEN @PaymentDateTo IS NULL THEN 1
+				ELSE
+					CASE
+						WHEN TRN.PaymentDate <= @PaymentDateTo THEN 1
+						ELSE 0
+					END
+			END = 1
+	ORDER BY
+		CASE WHEN TRN.PaymentStatus = 'DECLINED' THEN 2 ELSE 1 END,
+		TRN.EmailsRemaining DESC,
+		TRN.PaymentDate DESC
+END

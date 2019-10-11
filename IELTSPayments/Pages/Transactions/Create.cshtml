@@ -1,0 +1,219 @@
+﻿@page
+@model IELTSPayments.Pages.Transactions.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>IELTSTransaction</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.PaymentID" class="control-label"></label>
+                <input asp-for="IELTSTransaction.PaymentID" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.PaymentID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.TransactionID" class="control-label"></label>
+                <input asp-for="IELTSTransaction.TransactionID" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.TransactionID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.PaymentResponse" class="control-label"></label>
+                <input asp-for="IELTSTransaction.PaymentResponse" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.PaymentResponse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.PaymentReference" class="control-label"></label>
+                <input asp-for="IELTSTransaction.PaymentReference" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.PaymentReference" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.BritishCouncilRef" class="control-label"></label>
+                <input asp-for="IELTSTransaction.BritishCouncilRef" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.BritishCouncilRef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.PaymentDate" class="control-label"></label>
+                <input asp-for="IELTSTransaction.PaymentDate" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.PaymentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.PaymentStatus" class="control-label"></label>
+                <input asp-for="IELTSTransaction.PaymentStatus" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.PaymentStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.TransactionGUID" class="control-label"></label>
+                <input asp-for="IELTSTransaction.TransactionGUID" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.TransactionGUID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.Forename" class="control-label"></label>
+                <input asp-for="IELTSTransaction.Forename" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.Forename" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.Surname" class="control-label"></label>
+                <input asp-for="IELTSTransaction.Surname" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.Email" class="control-label"></label>
+                <input asp-for="IELTSTransaction.Email" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.FeeExam" class="control-label"></label>
+                <input asp-for="IELTSTransaction.FeeExam" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.FeeExam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.FeeDuplicateCertificate" class="control-label"></label>
+                <input asp-for="IELTSTransaction.FeeDuplicateCertificate" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.FeeDuplicateCertificate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.FeeMockExam1" class="control-label"></label>
+                <input asp-for="IELTSTransaction.FeeMockExam1" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.FeeMockExam1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.FeeMockExam2" class="control-label"></label>
+                <input asp-for="IELTSTransaction.FeeMockExam2" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.FeeMockExam2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.FeeTransfer" class="control-label"></label>
+                <input asp-for="IELTSTransaction.FeeTransfer" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.FeeTransfer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.FeeBooks" class="control-label"></label>
+                <input asp-for="IELTSTransaction.FeeBooks" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.FeeBooks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.TipsClass" class="control-label"></label>
+                <input asp-for="IELTSTransaction.TipsClass" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.TipsClass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.FeeTotal" class="control-label"></label>
+                <input asp-for="IELTSTransaction.FeeTotal" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.FeeTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.SystemUsed" class="control-label"></label>
+                <input asp-for="IELTSTransaction.SystemUsed" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.SystemUsed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.ReportType" class="control-label"></label>
+                <input asp-for="IELTSTransaction.ReportType" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.ReportType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.RequiredEmails" class="control-label"></label>
+                <input asp-for="IELTSTransaction.RequiredEmails" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.RequiredEmails" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.SentEmails" class="control-label"></label>
+                <input asp-for="IELTSTransaction.SentEmails" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.SentEmails" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IELTSTransaction.IsPaymentDiscrepancy" /> @Html.DisplayNameFor(model => model.IELTSTransaction.IsPaymentDiscrepancy))
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailsRemaining" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailsRemaining" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailsRemaining" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailRequiredDuplicateCert" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailRequiredDuplicateCert" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailRequiredDuplicateCert" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailSentDuplicateCert" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailSentDuplicateCert" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailSentDuplicateCert" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailRequiredTransfer" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailRequiredTransfer" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailRequiredTransfer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailSentTransfer" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailSentTransfer" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailSentTransfer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailRequiredPractice" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailRequiredPractice" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailRequiredPractice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailSentPractice" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailSentPractice" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailSentPractice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailRequiredMock" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailRequiredMock" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailRequiredMock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailSentMock" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailSentMock" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailSentMock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EnquiryOnResult" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EnquiryOnResult" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EnquiryOnResult" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.EmailProgress" class="control-label"></label>
+                <input asp-for="IELTSTransaction.EmailProgress" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.EmailProgress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.PaymentExpected" class="control-label"></label>
+                <input asp-for="IELTSTransaction.PaymentExpected" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.PaymentExpected" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.PaymentMade" class="control-label"></label>
+                <input asp-for="IELTSTransaction.PaymentMade" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.PaymentMade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IELTSTransaction.PaymentDiscrepancy" class="control-label"></label>
+                <input asp-for="IELTSTransaction.PaymentDiscrepancy" class="form-control" />
+                <span asp-validation-for="IELTSTransaction.PaymentDiscrepancy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

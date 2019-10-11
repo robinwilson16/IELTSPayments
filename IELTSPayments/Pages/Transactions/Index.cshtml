@@ -1,0 +1,135 @@
+﻿@page
+@model IELTSPayments.Pages.Transactions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Transactions</h1>
+
+<div class="container alert alert-primary">
+    <div class="row">
+        <div class="col-md">
+            <div class="form-group row">
+                <label for="ReportType" class="col-sm-4 col-form-label">Report Type</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="ReportType" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-group row">
+                <label for="Ref" class="col-sm-4 col-form-label">Reference</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Ref" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-group row">
+                <label for="Email" class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" id="Email" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <div class="form-group row">
+                <label for="DateFrom" class="col-sm-4 col-form-label">From</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" id="DateFrom" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-group row">
+                <label for="DateTo" class="col-sm-4 col-form-label">To</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" id="DateTo" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-group row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <button type="button" class="btn btn-primary btn-block SearchTransactions"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-sm table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IELTSTransaction[0].BritishCouncilRef)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IELTSTransaction[0].Forename)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IELTSTransaction[0].Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IELTSTransaction[0].PaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IELTSTransaction[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IELTSTransaction[0].FeeTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IELTSTransaction[0].PaymentStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IELTSTransaction[0].EmailProgress)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.IELTSTransaction)
+{
+    string transactionClass = "PositiveTransaction";
+    if(item.PaymentStatus == "DECLINED")
+    {
+        transactionClass = "DeclinedTransaction";
+    }
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BritishCouncilRef)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Forename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm ViewFees"><i class="fas fa-search-dollar"></i> @Html.DisplayFor(modelItem => item.FeeTotal)</button>
+            </td>
+            <td class="@transactionClass">
+                @Html.DisplayFor(modelItem => item.PaymentStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailProgress)
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm SendEmail"><i class="fas fa-envelope-open-text"></i> Send Email</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
