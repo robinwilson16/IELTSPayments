@@ -5,20 +5,187 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Payment Details</h1>
+<h4>IELTSTransaction</h4>
+<hr />
 
-<div>
-    <h4>IELTSTransaction</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IELTSPayment.FeesRecorded)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IELTSPayment.FeesRecorded)
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col-md" id="PaymentDetails">
+        <div class="row">
+            <div class="col-md">
+                <div class="row">
+                    <div class="col">
+                        @Html.DisplayNameFor(model => model.IELTSPayment.TransactionRef)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(model => model.IELTSPayment.TransactionRef)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="row">
+                    <div class="col">
+                        @Html.DisplayNameFor(model => model.IELTSPayment.TransactionDate)
+                    </div>
+                    <div class="col">
+                        @Model.IELTSPayment.TransactionDate
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md bd-callout bd-callout-info text-center FeesSummaryBox">
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>
+                            Pre-test
+                        </h4>
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeMockExam1)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeeMockExam1)
+                                </div>
+                            </div>
+
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeMockExam2)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeeMockExam2)
+                                </div>
+                            </div>
+
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeBooks)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeeBooks)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md bd-callout bd-callout-info text-center FeesSummaryBox">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>
+                            IELTS
+                        </h4>
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeExam)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeeExam)
+                                </div>
+                            </div>
+
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.TipsClass)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.TipsClass)
+                                </div>
+                            </div>
+
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeBooks)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeeBooks)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md bd-callout bd-callout-info text-center FeesSummaryBox">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>
+                            Post Test
+                        </h4>
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeTransfer)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeeTransfer)
+                                </div>
+                            </div>
+
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeDuplicateCertificate)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeeDuplicateCertificate)
+                                </div>
+                            </div>
+
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeEnquiryOnResult)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeeEnquiryOnResult)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md bd-callout bd-callout-info text-center FeesSummaryBox">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>
+                            Summary
+                        </h4>
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.AmountPaid)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.AmountPaid)
+                                </div>
+                            </div>
+
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeesRecorded)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.FeesRecorded)
+                                </div>
+                            </div>
+
+                            <div class="col-md card">
+                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.Discrepancy)</h5>
+                                <div class="card-footer">
+                                    @Html.DisplayFor(model => model.IELTSPayment.Discrepancy)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-page="./Index">Back to List</a>

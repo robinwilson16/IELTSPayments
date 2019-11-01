@@ -1,5 +1,33 @@
 ﻿$("#LoadingModal").modal("show");
 
+//Load data in when model is displayed
+$("#PaymentsModal").on("shown.bs.modal", function () {
+    let transactionID = $("#TransactionID").val();
+    let dataToLoad = `/Transactions/Details/${transactionID}`;
+
+    $.get(dataToLoad, function (data) {
+
+    })
+        .then(data => {
+            var formData = $(data).find("#PaymentDetails");
+            $("#PaymentDetails").html(formData);
+
+            console.log(dataToLoad + " Loaded");
+        })
+        .fail(function () {
+            let title = `Error Loading Payment Information`;
+            let content = `The payment data at ${dataToLoad} returned a server error and could not be loaded`;
+
+            doErrorModal(title, content);
+        });
+});
+
+$("#PaymentsModal").on("hidden.bs.modal", function () {
+    let loadingAnim = $("#LoadingHTML").html();
+
+    $("#PaymentDetails").html(loadingAnim);
+});
+
 $(".SubmitOnEnter").keyup(function (event) {
     if ((event.keyCode || event.which) === 13) {
         //If enter key pressed
@@ -14,6 +42,7 @@ $(".SearchTransactions").click(function (event) {
     let email = $("#Email").val();
     let paymentDateFrom = $("#PaymentDateFrom").val();
     let paymentDateTo = $("#PaymentDateTo").val();
+    let actionsRequired = $("#ActionsRequired").is(":checked"); 
 
     if (reportType.length > 0) {
         dataToLoad += `&reportType=${reportType}`;
@@ -35,19 +64,15 @@ $(".SearchTransactions").click(function (event) {
         dataToLoad += `&paymentDateTo=${paymentDateTo}`;
     }
 
+    if (actionsRequired === true) {
+        dataToLoad += `&actionsRequired=true`;
+    }
+
     $("#LoadingModal").modal("show");
 
     let listData = $("#TransactionList").DataTable();
     listData.ajax.url(dataToLoad).load(null, false);
     console.log(dataToLoad + " Loaded");
-});
-
-$(".ViewFees").click(function (event) {
-    alert("Search button clicked");
-});
-
-$(".SendEmail").click(function (event) {
-    alert("Search button clicked");
 });
 
 $(function () {
@@ -60,7 +85,7 @@ $(function () {
     //var searchParams = $("#FilterQuery").val();
 
     TransactionListDT = $('#TransactionList').DataTable({
-        dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-md text-right"B>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+        dom: '<"row"<"col-md"l><"col-md"f>>rt<"row"<"col-md"ip><"col-md text-right"B>>',
         buttons: [
             {
                 extend: 'colvis',
@@ -102,7 +127,7 @@ $(function () {
                 }
             }
         ],
-        sDom: "prtp", 
+        //sDom: "fprtp", 
         processing: true,
         responsive: true, //Add this
         //language: {
@@ -112,7 +137,7 @@ $(function () {
         colReorder: true,
         deferRender: true,
         scroller: true,
-        scrollY: 420,
+        scrollY: 320,
         //ajax: { url: "/Transactions/?handler=Json&search=" + searchParams, dataSrc: "" },
         ajax: {
             url: "/Transactions/?handler=Json",
@@ -181,17 +206,10 @@ $(function () {
             },
             {
                 data: {
-                    _: "emailProgress",
-                    sort: "emailProgress",
-                    filter: "emailProgress"
-                }
-            },
-            {
-                data: {
-                    _: "emailProgress",
-                    sort: "emailProgress",
-                    filter: "emailProgress",
-                    display: trnSendEmail
+                    _: "bookSent",
+                    sort: "bookSent",
+                    filter: "bookSent",
+                    display: trnActions
                 }
             }
         ],
@@ -210,7 +228,7 @@ function trnPaymentDate(data, type, dataToSet) {
 
 function trnFeeTotal(data, type, dataToSet) {
     return `
-        <button type="button" class="btn btn-outline-primary btn-sm btn-block ViewFees" data-toggle="modal" data-target="#PaymentsModal">
+        <button type="button" class="btn btn-outline-primary btn-sm btn-block ViewFees" data-toggle="modal" data-target="#PaymentsModal" aria-label="${data.transactionID}">
             <i class="fas fa-search-dollar"></i> ${formatMoney(data.feeTotal, 0, "£")}
         </button>`;
 }
@@ -227,19 +245,28 @@ function trnPaymentStatus(data, type, dataToSet) {
         </div>`;
 }
 
-function trnSendEmail(data, type, dataToSet) {
-    return `
-        <i class="fas fa-book"></i> Book Sent
-        <label class="switch-sm">
-            <input type="checkbox" class="BookSent">
-            <span class="slider-sm round"></span>
-        </label>
+function trnActions(data, type, dataToSet) {
+    let itemsSent = ``;
 
-        <i class="fas fa-compact-disc"></i> DVD Sent
-        <label class="switch-sm">
-            <input type="checkbox" class="BookSent">
-            <span class="slider-sm round"></span>
-        </label>`;
+    if (data.feeBooks > 0) {
+        itemsSent += `
+            <i class="fas fa-book"></i> Book Sent
+            <label class="switch-sm">
+                <input type="checkbox" class="ItemSent Book" aria-label="${data.transactionID}">
+                <span class="slider-sm round"></span>
+            </label>`;
+    }
+
+    if (data.feeMockExam1 > 0 || data.feeMockExam2 > 0) {
+        itemsSent += `
+            <i class="fas fa-compact-disc"></i> DVD Sent
+            <label class="switch-sm">
+                <input type="checkbox" class="ItemSent DVD" aria-label="${data.transactionID}">
+                <span class="slider-sm round"></span>
+            </label>`;
+    }
+
+    return itemsSent;
 }
 
 function formatMoney(num, rnd, symb, decimalSep, thousSep) {
@@ -258,4 +285,55 @@ function formatMoney(num, rnd, symb, decimalSep, thousSep) {
 function attachListFunctions() {
     //Attach after table has finished loading
     $("#LoadingModal").modal("hide");
+
+    $(".ViewFees").click(function (event) {
+        let transactionID = $(this).attr("aria-label");
+        $("#TransactionID").val(transactionID);
+    });
+
+    $(".ItemSent").click(function (event) {
+        let transactionID = $(this).attr("aria-label");
+        let isItemSent = $(this).is(":checked");
+        let itemType = null;
+
+        if ($(this).hasClass("Book")) {
+            itemType = `Book`;
+        }
+        else if ($(this).hasClass("DVD")) {
+            itemType = `DVD`;
+        }
+
+        if (itemType == null) {
+            let title = `Error Updating Status`;
+            let content = `It was not possible to determine what type of item was sent. Please try again`;
+
+            //Set checkbox back as could not update database
+            if (isItemSent === true) {
+                $(this).prop('checked', false);
+            }
+            else {
+                $(this).prop('checked', true);
+            }
+
+            doErrorModal(title, content);
+        }
+        else if (!transactionID > 0) {
+            let title = `Error Updating Status`;
+            let content = `It was not possible to determine which transaction needs to be updated. Please try again`;
+
+            //Set checkbox back as could not update database
+            if (isItemSent === true) {
+                $(this).prop('checked', false);
+            }
+            else {
+                $(this).prop('checked', true);
+            }
+
+            doErrorModal(title, content);
+        }
+        else {
+            //alert(transactionID + ' - ' + itemType + ' - ' + isItemSent);
+            saveItemSentStatus(transactionID, itemType, isItemSent);
+        }
+    });
 }

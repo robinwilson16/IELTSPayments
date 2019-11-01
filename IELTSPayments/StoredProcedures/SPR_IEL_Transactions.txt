@@ -1,26 +1,21 @@
-/*****************************************
-* Lists IELTS transactions for the       *
-* payment report                         *
-* Ensure filtering on specific amounts   *
-* of money as may need reviewing         *
-******************************************/
-
 CREATE PROCEDURE [dbo].[SPR_IEL_Transactions]
 	@ReportType NCHAR(1),
 	@BritishCouncilRef NVARCHAR(50),
 	@Email NVARCHAR(500),
 	@PaymentDateFrom DATE,
-	@PaymentDateTo DATE
+	@PaymentDateTo DATE,
+	@ActionsRequired BIT,
+	@TransactionID INT
 AS
 BEGIN
 	SET NOCOUNT ON;
 
 	SELECT
 		PaymentID = PAY.id, --id
-		TransactionID = COALESCE ( TRAN1.id, TRAN2.id), --trans_id
+		TransactionID = COALESCE ( TRAN2.id, TRAN1.id), --trans_id
 		PaymentResponse = PAY.barclays_response, --barclays_response
 		PaymentReference = PAY.reference_id, --transation_ref
-		BritishCouncilRef = COALESCE ( '66_' + TRAN2.reference_id, PAY.reference_id ), --british_council_ref
+		BritishCouncilRef = COALESCE ( TRAN2.reference_id, PAY.reference_id ), --british_council_ref
 		PaymentDate = CAST ( PAY.TIMESTAMP AS DATE ), --TIMESTAMP
 		PaymentStatus = PAY.status, --STATUS
 		TransactionGUID = COALESCE ( TRAN1.ref_guid, TRAN2.ref_guid), --ref_guid,
@@ -33,6 +28,7 @@ BEGIN
 		FeeMockExam2 = CAST ( COALESCE ( TRAN2.mockexam2, 0 ) AS DECIMAL(18, 2) ), --mocks_exam_2,
 		FeeTransfer = CAST ( COALESCE ( TRAN2.transfer_fees, 0 ) AS DECIMAL(18, 2) ), --transfer_fees,
 		FeeBooks = CAST ( COALESCE ( TRAN2.refbooks, 0 ) AS DECIMAL(18, 2) ), --book,
+		FeeEnquiryOnResult = CAST ( COALESCE ( TRAN2.EnquiryOnResult, 0 ) AS DECIMAL(18, 2) ),
 		TipsClass = CAST ( COALESCE ( TRAN2.tipsclass, 0 ) AS DECIMAL(18, 2) ), --tipsclass,
 		FeeTotal = CAST ( COALESCE ( PAY.total, TRAN2.payment ) AS DECIMAL(18, 2) ), --total_card_payment,
 		SystemUsed = 
@@ -153,13 +149,31 @@ BEGIN
 						+ CASE WHEN TRAN2.mockexam2 > 0 THEN 1 ELSE 0 END
 					, 0 ) AS VARCHAR(10) )
 			END,
-		PaymentExpected = 
-		CAST ( COALESCE ( TRAN2.ieltsExam, 0 ) AS DECIMAL ( 8, 2 ) )
-			+ COALESCE ( TRAN2.duplicate_Certificate, 0 )
+		BookSent = 
+			CAST (
+				CASE
+
+					WHEN BOOK.at_primary_key IS NOT NULL THEN 1
+					ELSE 0
+				END
+			AS BIT ),
+		DVDSent = 
+			CAST (
+				CASE
+
+					WHEN DVD.at_primary_key IS NOT NULL THEN 1
+					ELSE 0
+				END
+			AS BIT ),
+		PaymentExpected =  
+			CAST ( COALESCE ( TRAN2.ieltsExam, 0 ) AS DECIMAL ( 8, 2 ) )
+			+ COALESCE ( TRAN2.duplicate_certificate, 0 )
+			+ COALESCE ( TRAN2.mockexam1, 0 )
+			+ COALESCE ( TRAN2.mockexam2, 0 )
 			+ COALESCE ( TRAN2.transfer_fees, 0 )
 			+ COALESCE ( TRAN2.refbooks, 0 )
-			+ COALESCE ( TRAN2.mockexam1, 0 )
-			+ COALESCE ( TRAN2.mockexam2, 0 ), --NEW - move up when possible
+			+ COALESCE ( TRAN2.tipsclass, 0 )
+			+ COALESCE ( TRAN2.EnquiryOnResult, 0 ),
 		PaymentMade = COALESCE ( TRAN2.payment, 0 ), --NEW - move up when possible
 		PaymentDiscrepancy = 
 			CAST (
@@ -167,11 +181,13 @@ BEGIN
 				-
 				( 
 					CAST ( COALESCE ( TRAN2.ieltsExam, 0 ) AS DECIMAL ( 8, 2 ) )
-					+ COALESCE ( TRAN2.duplicate_Certificate, 0 )
+					+ COALESCE ( TRAN2.duplicate_certificate, 0 )
+					+ COALESCE ( TRAN2.mockexam1, 0 )
+					+ COALESCE ( TRAN2.mockexam2, 0 )
 					+ COALESCE ( TRAN2.transfer_fees, 0 )
 					+ COALESCE ( TRAN2.refbooks, 0 )
-					+ COALESCE ( TRAN2.mockexam1, 0 )
-					+ COALESCE ( TRAN2.mockexam2, 0 ) 
+					+ COALESCE ( TRAN2.tipsclass, 0 )
+					+ COALESCE ( TRAN2.EnquiryOnResult, 0 )
 				)
 			AS DECIMAL ( 8, 2 ) ) --NEW - move up when possible
 		INTO #Transactions
@@ -180,6 +196,12 @@ BEGIN
 		ON '66_' + TRAN1.reference_id = PAY.reference_id
 	LEFT JOIN activa.payments.dbo.transactions_tbl TRAN2 
 		ON CAST ( TRAN2.ref_guid AS VARCHAR(255) ) = PAY.reference_id
+	LEFT JOIN activa.payments.dbo.email_audit_trail_tbl BOOK
+		ON BOOK.at_primary_key = TRAN2.id
+		AND BOOK.at_new_value = 'PracticeMaterial'
+	LEFT JOIN activa.payments.dbo.email_audit_trail_tbl DVD
+		ON DVD.at_primary_key = TRAN2.id
+		AND DVD.at_new_value = 'MockTest'
 	LEFT JOIN (
 		SELECT
 			TransactionID = EMAIL.at_primary_key,
@@ -220,8 +242,9 @@ BEGIN
 						ELSE 0
 					END
 			END = 1
+		AND TRN.TransactionID = COALESCE ( @TransactionID, TRN.TransactionID )
 	ORDER BY
 		CASE WHEN TRN.PaymentStatus = 'DECLINED' THEN 2 ELSE 1 END,
-		TRN.EmailsRemaining DESC,
+		--TRN.EmailsRemaining DESC,
 		TRN.PaymentDate DESC
 END

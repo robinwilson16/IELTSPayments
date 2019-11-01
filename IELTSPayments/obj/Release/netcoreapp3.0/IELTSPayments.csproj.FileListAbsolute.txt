@@ -138,3 +138,6 @@ G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.0\
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.0\IELTSPayments.csproj.CopyComplete
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.0\IELTSPayments.dll
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.0\IELTSPayments.pdb
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.0\Razor\Pages\_HiddenInputsPartial.cshtml.g.cs
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.0\Razor\Pages\_ModalsPartial.cshtml.g.cs
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.0\Razor\Pages\Transactions\UpdateStatus.cshtml.g.cs

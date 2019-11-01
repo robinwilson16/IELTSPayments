@@ -1,0 +1,10 @@
+CREATE PROCEDURE [dbo].[SPR_IEL_UpdateStatus]
+	@TransactionID INT,
+    @IsBookSent BIT,
+    @IsDVDSent BIT
+AS
+BEGIN
+	SET NOCOUNT ON;
+    
+	--To-Do
+END

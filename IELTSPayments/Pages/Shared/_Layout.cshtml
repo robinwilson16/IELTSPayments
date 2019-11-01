@@ -37,7 +37,7 @@
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-page="/Index">
                 <img class="NavLogo" src="~/images/WestLondonCollegeLogo.png" alt="West London College" />
-                IELTS System
+                IELTS Payments
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -150,6 +150,9 @@
                 crossorigin="anonymous">
         </script>
     </environment>
+
+    <script src="~/js/modals.js" asp-append-version="true"></script>
+    <script src="~/js/saveData.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)

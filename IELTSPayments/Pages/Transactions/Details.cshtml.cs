@@ -40,9 +40,10 @@ namespace IELTSPayments.Pages.Transactions
 
             //IELTSTransaction = await _context.IELTSTransaction.FirstOrDefaultAsync(m => m.PaymentID == id);
 
-            IELTSPayment = await _context.IELTSPayment
+            IELTSPayment = (await _context.IELTSPayment
                 .FromSqlInterpolated($"EXEC SPR_IEL_Payment @TransactionID={id}")
-                .FirstOrDefaultAsync();
+                .ToListAsync())
+                .FirstOrDefault();
 
             UserDetails = await Identity.GetFullName(User.Identity.Name.Split('\\').Last(), _context, _configuration);
             UserGreeting = Identity.GetGreeting();
@@ -55,6 +56,26 @@ namespace IELTSPayments.Pages.Transactions
                 return NotFound();
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnGetJsonAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            IELTSPayment = (await _context.IELTSPayment
+                .FromSqlInterpolated($"EXEC SPR_IEL_Payment @TransactionID={id}")
+                .ToListAsync())
+                .FirstOrDefault();
+
+            if (IELTSPayment == null)
+            {
+                return NotFound();
+            }
+
+            return new JsonResult(IELTSPayment);
         }
     }
 }

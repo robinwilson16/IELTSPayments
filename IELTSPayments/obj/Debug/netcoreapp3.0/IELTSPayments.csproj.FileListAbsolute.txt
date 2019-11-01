@@ -109,8 +109,6 @@ G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\bin\Debug\netcoreapp3.0\ru
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\bin\Debug\netcoreapp3.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\staticwebassets\IELTSPayments.StaticWebAssets.Manifest.cache
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\staticwebassets\IELTSPayments.StaticWebAssets.xml
-G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.MvcApplicationPartsAssemblyInfo.cs
-G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.MvcApplicationPartsAssemblyInfo.cache
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.RazorAssemblyInfo.cache
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.RazorAssemblyInfo.cs
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.AssemblyInfoInputs.cache
@@ -137,3 +135,9 @@ G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IE
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.csproj.CopyComplete
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.dll
 G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.pdb
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.csprojAssemblyReference.cache
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.MvcApplicationPartsAssemblyInfo.cs
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\IELTSPayments.MvcApplicationPartsAssemblyInfo.cache
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\Razor\Pages\_ModalsPartial.cshtml.g.cs
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\Razor\Pages\_HiddenInputsPartial.cshtml.g.cs
+G:\My Drive\Net Core\v3.0\IELTSPayments\IELTSPayments\obj\Debug\netcoreapp3.0\Razor\Pages\Transactions\UpdateStatus.cshtml.g.cs

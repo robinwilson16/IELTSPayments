@@ -38,13 +38,14 @@ namespace IELTSPayments.Pages.Transactions
             string reportType,
             string email,
             DateTime? paymentDateFrom,
-            DateTime? paymentDateTo
+            DateTime? paymentDateTo,
+            bool? actionsRequired
             )
         {
             //IELTSTransaction = await _context.IELTSTransaction.ToListAsync();
 
             IELTSTransaction = await _context.IELTSTransaction
-                .FromSqlInterpolated($"EXEC SPR_IEL_Transactions @ReportType={reportType}, @BritishCouncilRef={britishCouncilRef}, @Email={email}, @PaymentDateFrom={paymentDateFrom}, @PaymentDateTo={paymentDateTo}")
+                .FromSqlInterpolated($"EXEC SPR_IEL_Transactions @ReportType={reportType}, @BritishCouncilRef={britishCouncilRef}, @Email={email}, @PaymentDateFrom={paymentDateFrom}, @PaymentDateTo={paymentDateTo}, @ActionsRequired={actionsRequired}, @TransactionID=null")
                 .ToListAsync();
 
             UserDetails = await Identity.GetFullName(User.Identity.Name.Split('\\').Last(), _context, _configuration);
@@ -59,12 +60,13 @@ namespace IELTSPayments.Pages.Transactions
             string reportType, 
             string email,
             DateTime? paymentDateFrom,
-            DateTime? paymentDateTo
+            DateTime? paymentDateTo,
+            bool? actionsRequired
             )
         {
 
             IELTSTransaction = await _context.IELTSTransaction
-                .FromSqlInterpolated( $"EXEC SPR_IEL_Transactions @ReportType={reportType}, @BritishCouncilRef={britishCouncilRef}, @Email={email}, @PaymentDateFrom={paymentDateFrom}, @PaymentDateTo={paymentDateTo}")
+                .FromSqlInterpolated($"EXEC SPR_IEL_Transactions @ReportType={reportType}, @BritishCouncilRef={britishCouncilRef}, @Email={email}, @PaymentDateFrom={paymentDateFrom}, @PaymentDateTo={paymentDateTo}, @ActionsRequired={actionsRequired}, @TransactionID=null")
                 .ToListAsync();
 
             var collectionWrapper = new
