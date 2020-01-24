@@ -75,8 +75,10 @@ namespace IELTSPayments.Pages.Transactions
             try
             {
                 //await _context.SaveChangesAsync();
+                string UserName = User.Identity.Name.Split('\\').Last();
+
                 await _context.Database
-                    .ExecuteSqlInterpolatedAsync($"EXEC SPR_IEL_UpdateStatus @TransactionID={IELTSTransaction.TransactionID}, @IsBookSent={IELTSTransaction.BookSent}, @IsDVDSent={IELTSTransaction.DVDSent}");
+                    .ExecuteSqlInterpolatedAsync($"EXEC SPR_IEL_UpdateStatus @TransactionID={IELTSTransaction.TransactionID}, @IsBookSent={IELTSTransaction.BookSent}, @IsDVDSent={IELTSTransaction.DVDSent}, @UserName={UserName}");
 
                 result = "{ saved: \"Y\", error: \"\" }";
             }

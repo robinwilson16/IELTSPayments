@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\My Drive\\Net Core\\v3.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {}
+    "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v3.1\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {}
   },
   "projects": {
-    "G:\\My Drive\\Net Core\\v3.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {
+    "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v3.1\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\My Drive\\Net Core\\v3.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
+        "projectUniqueName": "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v3.1\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
         "projectName": "IELTSPayments",
-        "projectPath": "G:\\My Drive\\Net Core\\v3.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
+        "projectPath": "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v3.1\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
         "packagesPath": "C:\\Users\\r.wilson\\.nuget\\packages\\",
-        "outputPath": "G:\\My Drive\\Net Core\\v3.0\\IELTSPayments\\IELTSPayments\\obj\\",
+        "outputPath": "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v3.1\\IELTSPayments\\IELTSPayments\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -21,14 +21,14 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.0"
+          "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.0": {
+          "netcoreapp3.1": {
             "projectReferences": {}
           }
         },
@@ -39,37 +39,41 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.0": {
+        "netcoreapp3.1": {
           "dependencies": {
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.1, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.1, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.1, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.1, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.1, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.1, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Web.LibraryManager.Build": {
+              "target": "Package",
+              "version": "[2.0.96, )"
             }
           },
           "imports": [
@@ -90,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
