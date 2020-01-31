@@ -1,5 +1,8 @@
 ﻿@page
 @model IndexModel
+@using IELTSPayments.Models
+@using Microsoft.Extensions.Options
+@inject IOptions<SystemSettings> ApplicationSettings
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @{
     ViewData["Title"] = "Home page";

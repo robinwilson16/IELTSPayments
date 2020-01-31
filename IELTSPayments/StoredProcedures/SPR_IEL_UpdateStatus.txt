@@ -1,10 +1,150 @@
+/*****************************************
+* Updates the audit trail table to       *
+* record whether or not a book and/or    *
+* DVD has been where required.           *
+******************************************/
 CREATE PROCEDURE [dbo].[SPR_IEL_UpdateStatus]
 	@TransactionID INT,
     @IsBookSent BIT,
-    @IsDVDSent BIT
+    @IsDVDSent BIT,
+	@UserName VARCHAR(200)
 AS
 BEGIN
 	SET NOCOUNT ON;
-    
-	--To-Do
+
+    PRINT 
+		'Line To Update - '
+		+ ' User Name: ' + @UserName + ';' 
+		+ ' Book Sent: ' + COALESCE ( CAST ( @IsBookSent AS CHAR(1) ), '?' ) + ';' 
+		+ ' DVD Sent: ' + COALESCE ( CAST ( @IsDVDSent AS CHAR(1) ), '?' )
+
+	DECLARE @ExistingAuditTrailID INT = NULL
+
+	IF @IsBookSent IS NOT NULL
+	BEGIN
+		--See if there is already a record in the database
+		SET @ExistingAuditTrailID = NULL
+		SELECT
+			@ExistingAuditTrailID = AUD.audit_trail_id
+		FROM activa.payments.dbo.email_audit_trail_tbl AUD
+		WHERE
+			AUD.at_primary_key = @TransactionID
+			AND AUD.at_new_value = 'PracticeMaterial' --BOOK
+
+		PRINT 'Existing Book Audit Trail ID: ' + CAST ( @ExistingAuditTrailID AS VARCHAR(50) )
+
+		IF @IsBookSent = 1
+		BEGIN
+			IF @ExistingAuditTrailID IS NULL
+			BEGIN
+				--If book has been sent and audit record does not already exist
+				INSERT INTO activa.payments.dbo.email_audit_trail_tbl
+				(
+					type,
+					at_when,
+					at_userID,
+					at_table_name,
+					at_primary_key,
+					at_field_name,
+					at_new_value
+				)
+				SELECT
+					type = 'U',
+					at_when = GETDATE(),
+					at_userID = @UserName,
+					at_table_name = 'activa.payments.dbo.transactions_tbl',
+					at_primary_key = @TransactionID,
+					at_field_name = 'type',
+					at_new_value = 'PracticeMaterial'
+
+				PRINT 'Inserted New Book Audit Trail Record'
+			END
+			ELSE
+			BEGIN
+				PRINT 'Book Audit Trail Record Already Inserted - No Action'
+			END
+		END
+		ELSE
+		BEGIN
+			IF @ExistingAuditTrailID IS NOT NULL
+			BEGIN
+				--If book sent is false and current audit record exists delete it
+				DELETE FROM AUD
+				FROM activa.payments.dbo.email_audit_trail_tbl AUD
+				WHERE
+					AUD.audit_trail_id = @ExistingAuditTrailID
+					AND AUD.at_new_value = 'PracticeMaterial' --BOOK
+
+				PRINT 'Updated Existing Book Audit Trail Record'
+			END
+			ELSE
+			BEGIN
+				PRINT 'No Book Audit Trail Record Exists or Is Already Deleted - No Action'
+			END
+		END
+	END
+
+	IF @IsDVDSent IS NOT NULL
+	BEGIN
+		--See if there is already a record in the database
+		SET @ExistingAuditTrailID = NULL
+		SELECT
+			@ExistingAuditTrailID = AUD.audit_trail_id
+		FROM activa.payments.dbo.email_audit_trail_tbl AUD
+		WHERE
+			AUD.at_primary_key = 101778
+			AND AUD.at_new_value = 'MockTest' --DVD
+		
+		PRINT 'Existing DVD Audit Trail ID: ' + CAST ( @ExistingAuditTrailID AS VARCHAR(50) )
+
+		IF @IsDVDSent = 1
+		BEGIN
+			IF @ExistingAuditTrailID IS NULL
+			BEGIN
+				--If book has been sent and audit record does not already exist
+				INSERT INTO activa.payments.dbo.email_audit_trail_tbl
+				(
+					type,
+					at_when,
+					at_userID,
+					at_table_name,
+					at_primary_key,
+					at_field_name,
+					at_new_value
+				)
+				SELECT
+					type = 'U',
+					at_when = GETDATE(),
+					at_userID = @UserName,
+					at_table_name = 'activa.payments.dbo.transactions_tbl',
+					at_primary_key = @TransactionID,
+					at_field_name = 'type',
+					at_new_value = 'MockTest' --DVD
+
+				PRINT 'Inserted New DVD Audit Trail Record'
+			END
+			ELSE
+			BEGIN
+				PRINT 'DVD Audit Trail Record Already Inserted - No Action'
+			END
+		END
+		ELSE
+		BEGIN
+			IF @ExistingAuditTrailID IS NOT NULL
+			BEGIN
+				--If book sent is false and current audit record exists delete it
+				DELETE FROM AUD
+				FROM activa.payments.dbo.email_audit_trail_tbl AUD
+				WHERE
+					AUD.audit_trail_id = @ExistingAuditTrailID
+					AND AUD.at_new_value = 'MockTest' --DVD
+
+				PRINT 'Updated Existing DVD Audit Trail Record'
+			END
+			ELSE
+			BEGIN
+				PRINT 'No DVD Audit Trail Record Exists or Is Already Deleted - No Action'
+			END
+		END
+	END
 END

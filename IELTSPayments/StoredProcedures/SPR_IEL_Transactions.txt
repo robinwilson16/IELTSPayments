@@ -1,3 +1,10 @@
+/*****************************************
+* Lists IELTS transactions for the       *
+* payment report                         *
+* Ensure filtering on specific amounts   *
+* of money as may need reviewing         *
+******************************************/
+
 CREATE PROCEDURE [dbo].[SPR_IEL_Transactions]
 	@ReportType NCHAR(1),
 	@BritishCouncilRef NVARCHAR(50),
@@ -5,10 +12,19 @@ CREATE PROCEDURE [dbo].[SPR_IEL_Transactions]
 	@PaymentDateFrom DATE,
 	@PaymentDateTo DATE,
 	@ActionsRequired BIT,
-	@TransactionID INT
+	@TransactionID INT,
+	@MaxRecords INT
 AS
 BEGIN
 	SET NOCOUNT ON;
+
+	DECLARE @SQLString NVARCHAR(MAX);
+	DECLARE @SQLParams NVARCHAR(MAX);
+
+	IF COALESCE ( @MaxRecords, 0 ) <= 0
+	BEGIN
+		SET @MaxRecords = 500;
+	END
 
 	SELECT
 		PaymentID = PAY.id, --id
@@ -218,33 +234,79 @@ BEGIN
 	WHERE
 		COALESCE ( TRAN1.id, TRAN2.id ) IS NOT NULL
 		
-	SELECT TOP 50 *
-	FROM #Transactions TRN
-	WHERE
-		TRN.ReportType = COALESCE ( @ReportType, TRN.ReportType )
-		AND TRN.BritishCouncilRef = COALESCE ( @BritishCouncilRef, TRN.BritishCouncilRef )
-		AND TRN.Email = COALESCE ( @Email, TRN.Email )
-		AND
-			CASE
-				WHEN @PaymentDateFrom IS NULL THEN 1
-				ELSE
-					CASE
-						WHEN TRN.PaymentDate >= @PaymentDateFrom THEN 1
-						ELSE 0
-					END
-			END = 1
-		AND
-			CASE
-				WHEN @PaymentDateTo IS NULL THEN 1
-				ELSE
-					CASE
-						WHEN TRN.PaymentDate <= @PaymentDateTo THEN 1
-						ELSE 0
-					END
-			END = 1
-		AND TRN.TransactionID = COALESCE ( @TransactionID, TRN.TransactionID )
-	ORDER BY
-		CASE WHEN TRN.PaymentStatus = 'DECLINED' THEN 2 ELSE 1 END,
-		--TRN.EmailsRemaining DESC,
-		TRN.PaymentDate DESC
+
+	SET @SQLString = N'
+		SELECT TOP 500 *
+		FROM #Transactions TRN
+		WHERE
+			TRN.ReportType = COALESCE ( @ReportType, TRN.ReportType )
+			AND TRN.BritishCouncilRef = COALESCE ( @BritishCouncilRef, TRN.BritishCouncilRef )
+			AND TRN.Email = COALESCE ( @Email, TRN.Email )
+			AND
+				CASE
+					WHEN @PaymentDateFrom IS NULL THEN 1
+					ELSE
+						CASE
+							WHEN TRN.PaymentDate >= @PaymentDateFrom THEN 1
+							ELSE 0
+						END
+				END = 1
+			AND
+				CASE
+					WHEN @PaymentDateTo IS NULL THEN 1
+					ELSE
+						CASE
+							WHEN TRN.PaymentDate <= @PaymentDateTo THEN 1
+							ELSE 0
+						END
+				END = 1
+			AND TRN.TransactionID = COALESCE ( @TransactionID, TRN.TransactionID )
+			AND 
+				CASE 
+					WHEN COALESCE ( @ActionsRequired, 0 ) = 0 THEN 1
+					WHEN COALESCE ( @ActionsRequired, 0 ) = 1 THEN
+						CASE
+							--Requires book and book not sent
+							WHEN 
+								COALESCE ( TRN.FeeBooks, 0 ) > 0
+								AND TRN.BookSent <> 1 
+								AND TRN.PaymentStatus <> ''DECLINED''
+								THEN 1
+
+							--Requires dvd and book not sent
+							WHEN 
+								COALESCE ( TRN.FeeMockExam1, 0 ) + COALESCE ( TRN.FeeMockExam1, 0 ) > 0
+								AND TRN.DVDSent <> 1 
+								AND TRN.PaymentStatus <> ''DECLINED''
+								THEN 1
+							ELSE 0
+						END
+					ELSE 0
+				END = 1
+		ORDER BY
+			--CASE WHEN TRN.PaymentStatus = ''DECLINED'' THEN 2 ELSE 1 END,
+			--TRN.EmailsRemaining DESC,
+			TRN.PaymentDate DESC';
+
+		SET @SQLParams = 
+			N'@ReportType NCHAR(1),
+			@BritishCouncilRef NVARCHAR(50),
+			@Email NVARCHAR(500),
+			@PaymentDateFrom DATE,
+			@PaymentDateTo DATE,
+			@ActionsRequired BIT,
+			@TransactionID INT,
+			@MaxRecords INT';
+
+		EXECUTE sp_executesql 
+			@SQLString, 
+			@SQLParams, 
+			@ReportType = @ReportType,
+			@BritishCouncilRef = @BritishCouncilRef,
+			@Email = @Email,
+			@PaymentDateFrom = @PaymentDateFrom,
+			@PaymentDateTo = @PaymentDateTo,
+			@ActionsRequired = @ActionsRequired,
+			@TransactionID = @TransactionID,
+			@MaxRecords = @MaxRecords;
 END

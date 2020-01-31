@@ -15,7 +15,7 @@
             <div class="col-md">
                 <div class="row">
                     <div class="col">
-                        @Html.DisplayNameFor(model => model.IELTSPayment.TransactionRef)
+                        <i class="fab fa-slack-hash"></i> @Html.DisplayNameFor(model => model.IELTSPayment.TransactionRef)
                     </div>
                     <div class="col">
                         @Html.DisplayFor(model => model.IELTSPayment.TransactionRef)
@@ -26,7 +26,7 @@
             <div class="col-md">
                 <div class="row">
                     <div class="col">
-                        @Html.DisplayNameFor(model => model.IELTSPayment.TransactionDate)
+                        <i class="far fa-calendar-alt"></i> @Html.DisplayNameFor(model => model.IELTSPayment.TransactionDate)
                     </div>
                     <div class="col">
                         @Model.IELTSPayment.TransactionDate
@@ -44,26 +44,42 @@
                             Pre-test
                         </h4>
                     </div>
-
+                    @{
+                        string feeMockExam1CSS = "";
+                        if (Model.IELTSPayment.FeeMockExam1 <= 0)
+                        {
+                            feeMockExam1CSS = " text-muted";
+                        }
+                        string feeMockExam2CSS = "";
+                        if (Model.IELTSPayment.FeeMockExam2 <= 0)
+                        {
+                            feeMockExam2CSS = " text-muted";
+                        }
+                        string feeBooksCSS = "";
+                        if (Model.IELTSPayment.FeeBooks <= 0)
+                        {
+                            feeBooksCSS = " text-muted";
+                        }
+                    }
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeMockExam1)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="far fa-file-alt"></i> @Html.DisplayNameFor(model => model.IELTSPayment.FeeMockExam1)</h5>
+                                <div class="card-footer@{@feeMockExam1CSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.FeeMockExam1)
                                 </div>
                             </div>
 
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeMockExam2)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="far fa-file-alt"></i> @Html.DisplayNameFor(model => model.IELTSPayment.FeeMockExam2)</h5>
+                                <div class="card-footer@{@feeMockExam2CSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.FeeMockExam2)
                                 </div>
                             </div>
 
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeBooks)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="fas fa-book"></i> @Html.DisplayNameFor(model => model.IELTSPayment.FeeBooks)</h5>
+                                <div class="card-footer@{@feeBooksCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.FeeBooks)
                                 </div>
                             </div>
@@ -81,27 +97,31 @@
                             IELTS
                         </h4>
                     </div>
-
+                    @{
+                        string feeExamCSS = "";
+                        if (Model.IELTSPayment.FeeExam <= 0)
+                        {
+                            feeExamCSS = " text-muted";
+                        }
+                        string tipsClassCSS = "";
+                        if (Model.IELTSPayment.TipsClass <= 0)
+                        {
+                            tipsClassCSS = " text-muted";
+                        }
+                    }
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeExam)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="far fa-file-alt"></i> @Html.DisplayNameFor(model => model.IELTSPayment.FeeExam)</h5>
+                                <div class="card-footer@{@feeExamCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.FeeExam)
                                 </div>
                             </div>
 
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.TipsClass)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="fas fa-tag"></i> @Html.DisplayNameFor(model => model.IELTSPayment.TipsClass)</h5>
+                                <div class="card-footer@{@tipsClassCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.TipsClass)
-                                </div>
-                            </div>
-
-                            <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeBooks)</h5>
-                                <div class="card-footer">
-                                    @Html.DisplayFor(model => model.IELTSPayment.FeeBooks)
                                 </div>
                             </div>
                         </div>
@@ -118,26 +138,42 @@
                             Post Test
                         </h4>
                     </div>
-
+                    @{
+                        string feeTransferCSS = "";
+                        if (Model.IELTSPayment.FeeTransfer <= 0)
+                        {
+                            feeTransferCSS = " text-muted";
+                        }
+                        string feeDuplicateCertificateCSS = "";
+                        if (Model.IELTSPayment.FeeDuplicateCertificate <= 0)
+                        {
+                            feeDuplicateCertificateCSS = " text-muted";
+                        }
+                        string feeEnquiryOnResultCSS = "";
+                        if (Model.IELTSPayment.FeeEnquiryOnResult <= 0)
+                        {
+                            feeEnquiryOnResultCSS = " text-muted";
+                        }
+                    }
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeTransfer)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="fas fa-exchange-alt"></i> @Html.DisplayNameFor(model => model.IELTSPayment.FeeTransfer)</h5>
+                                <div class="card-footer@{@feeTransferCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.FeeTransfer)
                                 </div>
                             </div>
 
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeDuplicateCertificate)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="fas fa-certificate"></i> @Html.DisplayNameFor(model => model.IELTSPayment.FeeDuplicateCertificate)</h5>
+                                <div class="card-footer@{@feeDuplicateCertificateCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.FeeDuplicateCertificate)
                                 </div>
                             </div>
 
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeeEnquiryOnResult)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="fas fa-question-circle"></i> @Html.DisplayNameFor(model => model.IELTSPayment.FeeEnquiryOnResult)</h5>
+                                <div class="card-footer@{@feeEnquiryOnResultCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.FeeEnquiryOnResult)
                                 </div>
                             </div>
@@ -155,26 +191,42 @@
                             Summary
                         </h4>
                     </div>
-
+                    @{ 
+                        string amountPaidCSS = "";
+                        if (Model.IELTSPayment.AmountPaid <= 0)
+                        {
+                            amountPaidCSS = " text-muted";
+                        }
+                        string feesRecordedCSS = "";
+                        if (Model.IELTSPayment.FeesRecorded <= 0)
+                        {
+                            feesRecordedCSS = " text-muted";
+                        }
+                        string discrepancyCSS = "";
+                        if (Model.IELTSPayment.Discrepancy != 0)
+                        {
+                            discrepancyCSS = " text-danger";
+                        }
+                    }
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.AmountPaid)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="fas fa-pound-sign"></i> @Html.DisplayNameFor(model => model.IELTSPayment.AmountPaid)</h5>
+                                <div class="card-footer font-weight-bold@{@amountPaidCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.AmountPaid)
                                 </div>
                             </div>
 
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.FeesRecorded)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="fas fa-pound-sign"></i> @Html.DisplayNameFor(model => model.IELTSPayment.FeesRecorded)</h5>
+                                <div class="card-footer font-weight-bold@{@feesRecordedCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.FeesRecorded)
                                 </div>
                             </div>
 
                             <div class="col-md card">
-                                <h5 class="card-title">@Html.DisplayNameFor(model => model.IELTSPayment.Discrepancy)</h5>
-                                <div class="card-footer">
+                                <h5 class="card-title"><i class="fas fa-calculator"></i> @Html.DisplayNameFor(model => model.IELTSPayment.Discrepancy)</h5>
+                                <div class="card-footer font-weight-bold@{@discrepancyCSS}">
                                     @Html.DisplayFor(model => model.IELTSPayment.Discrepancy)
                                 </div>
                             </div>

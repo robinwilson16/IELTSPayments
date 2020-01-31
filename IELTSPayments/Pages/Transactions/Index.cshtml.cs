@@ -39,13 +39,14 @@ namespace IELTSPayments.Pages.Transactions
             string email,
             DateTime? paymentDateFrom,
             DateTime? paymentDateTo,
-            bool? actionsRequired
+            bool? actionsRequired,
+            int maxRecords
             )
         {
             //IELTSTransaction = await _context.IELTSTransaction.ToListAsync();
 
             IELTSTransaction = await _context.IELTSTransaction
-                .FromSqlInterpolated($"EXEC SPR_IEL_Transactions @ReportType={reportType}, @BritishCouncilRef={britishCouncilRef}, @Email={email}, @PaymentDateFrom={paymentDateFrom}, @PaymentDateTo={paymentDateTo}, @ActionsRequired={actionsRequired}, @TransactionID=null")
+                .FromSqlInterpolated($"EXEC SPR_IEL_Transactions @ReportType={reportType}, @BritishCouncilRef={britishCouncilRef}, @Email={email}, @PaymentDateFrom={paymentDateFrom}, @PaymentDateTo={paymentDateTo}, @ActionsRequired={actionsRequired}, @TransactionID=null, @MaxRecords={maxRecords}")
                 .ToListAsync();
 
             UserDetails = await Identity.GetFullName(User.Identity.Name.Split('\\').Last(), _context, _configuration);
@@ -61,12 +62,13 @@ namespace IELTSPayments.Pages.Transactions
             string email,
             DateTime? paymentDateFrom,
             DateTime? paymentDateTo,
-            bool? actionsRequired
+            bool? actionsRequired,
+            int maxRecords
             )
         {
 
             IELTSTransaction = await _context.IELTSTransaction
-                .FromSqlInterpolated($"EXEC SPR_IEL_Transactions @ReportType={reportType}, @BritishCouncilRef={britishCouncilRef}, @Email={email}, @PaymentDateFrom={paymentDateFrom}, @PaymentDateTo={paymentDateTo}, @ActionsRequired={actionsRequired}, @TransactionID=null")
+                .FromSqlInterpolated($"EXEC SPR_IEL_Transactions @ReportType={reportType}, @BritishCouncilRef={britishCouncilRef}, @Email={email}, @PaymentDateFrom={paymentDateFrom}, @PaymentDateTo={paymentDateTo}, @ActionsRequired={actionsRequired}, @TransactionID=null, @MaxRecords={maxRecords}")
                 .ToListAsync();
 
             var collectionWrapper = new

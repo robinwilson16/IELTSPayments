@@ -1,0 +1,51 @@
+CREATE PROCEDURE [dbo].[SPR_IEL_Payment]
+	@TransactionID INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	--DECLARE @TransactionID INT = 57
+
+	SELECT
+		TransactionID = TRN.id,
+		TransactionRef = TRN.reference_id,
+		TransactionDate = TRN.timestamp,
+		FeeExam = CAST ( COALESCE ( TRN.ieltsexam, 0 ) AS DECIMAL(18, 2) ),
+		FeeDuplicateCertificate = CAST ( COALESCE ( TRN.duplicate_certificate, 0 ) AS DECIMAL(18, 2) ),
+		FeeMockExam1 = CAST ( COALESCE ( TRN.mockexam1, 0 ) AS DECIMAL(18, 2) ),
+		FeeMockExam2 = CAST ( COALESCE ( TRN.mockexam2, 0 ) AS DECIMAL(18, 2) ),
+		FeeTransfer = CAST ( COALESCE ( TRN.transfer_fees, 0 ) AS DECIMAL(18, 2) ),
+		FeeBooks = CAST ( COALESCE ( TRN.refbooks, 0 ) AS DECIMAL(18, 2) ),
+		FeeEnquiryOnResult = CAST ( COALESCE ( TRN.EnquiryOnResult, 0 ) AS DECIMAL(18, 2) ),
+		TipsClass = CAST ( COALESCE ( TRN.tipsclass, 0 ) AS DECIMAL(18, 2) ),
+		FeesRecorded =
+			CAST ( 
+				CAST ( COALESCE ( TRN.ieltsExam, 0 ) AS DECIMAL ( 8, 2 ) )
+				+ COALESCE ( TRN.duplicate_certificate, 0 )
+				+ COALESCE ( TRN.mockexam1, 0 )
+				+ COALESCE ( TRN.mockexam2, 0 )
+				+ COALESCE ( TRN.transfer_fees, 0 )
+				+ COALESCE ( TRN.refbooks, 0 )
+				+ COALESCE ( TRN.tipsclass, 0 )
+				+ COALESCE ( TRN.EnquiryOnResult, 0 )
+			AS DECIMAL(18, 2) ),
+		AmountPaid = CAST ( COALESCE ( TRN.payment, 0 ) AS DECIMAL(18, 2) ),
+		Discrepancy = 
+			CAST ( 
+				COALESCE ( TRN.payment, 0 ) 
+				-
+				(
+					CAST ( COALESCE ( TRN.ieltsExam, 0 ) AS DECIMAL ( 8, 2 ) )
+					+ COALESCE ( TRN.duplicate_certificate, 0 )
+					+ COALESCE ( TRN.mockexam1, 0 )
+					+ COALESCE ( TRN.mockexam2, 0 )
+					+ COALESCE ( TRN.transfer_fees, 0 )
+					+ COALESCE ( TRN.refbooks, 0 )
+					+ COALESCE ( TRN.tipsclass, 0 )
+					+ COALESCE ( TRN.EnquiryOnResult, 0 )
+				)
+			AS DECIMAL(18, 2) )
+	FROM activa.payments.dbo.transactions_tbl TRN
+	WHERE
+		TRN.id = @TransactionID
+END

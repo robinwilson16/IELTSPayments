@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using IELTSPayments.Data;
@@ -69,6 +70,11 @@ namespace IELTSPayments
             {
                 endpoints.MapRazorPages();
             });
+
+            //Ensure currencies and dates are set to GB
+            var cultureInfo = new CultureInfo("en-GB");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
     }
 }

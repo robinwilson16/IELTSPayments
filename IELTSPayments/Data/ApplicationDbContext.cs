@@ -30,7 +30,7 @@ namespace IELTSPayments.Data
                 .HasKey(c => new { c.StaffRef });
 
             modelBuilder.Entity<SystemSettings>()
-                .HasKey(c => new { c.Version });
+                .HasKey(c => new { c.Version }); 
         }
     }
 }

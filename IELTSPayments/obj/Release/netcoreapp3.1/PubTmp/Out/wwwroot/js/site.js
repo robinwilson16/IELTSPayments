@@ -43,6 +43,7 @@ $(".SearchTransactions").click(function (event) {
     let paymentDateFrom = $("#PaymentDateFrom").val();
     let paymentDateTo = $("#PaymentDateTo").val();
     let actionsRequired = $("#ActionsRequired").is(":checked"); 
+    let maxRecords = $("#MaxRecords").val();
 
     if (reportType.length > 0) {
         dataToLoad += `&reportType=${reportType}`;
@@ -66,6 +67,10 @@ $(".SearchTransactions").click(function (event) {
 
     if (actionsRequired === true) {
         dataToLoad += `&actionsRequired=true`;
+    }
+
+    if (maxRecords.length > 0) {
+        dataToLoad += `&maxRecords=${maxRecords}`;
     }
 
     $("#LoadingModal").modal("show");
@@ -249,19 +254,31 @@ function trnActions(data, type, dataToSet) {
     let itemsSent = ``;
 
     if (data.feeBooks > 0) {
+        let bookChecked = ``;
+
+        if (data.bookSent === true) {
+            bookChecked = ` checked="checked"`;
+        }
+
         itemsSent += `
             <i class="fas fa-book"></i> Book Sent
             <label class="switch-sm">
-                <input type="checkbox" class="ItemSent Book" aria-label="${data.transactionID}">
+                <input type="checkbox" class="ItemSent Book" aria-label="${data.transactionID}"${bookChecked}>
                 <span class="slider-sm round"></span>
             </label>`;
     }
 
     if (data.feeMockExam1 > 0 || data.feeMockExam2 > 0) {
+        let dvdChecked = ``;
+
+        if (data.dvdSent === true) {
+            dvdChecked = ` checked="checked"`;
+        }
+
         itemsSent += `
             <i class="fas fa-compact-disc"></i> DVD Sent
             <label class="switch-sm">
-                <input type="checkbox" class="ItemSent DVD" aria-label="${data.transactionID}">
+                <input type="checkbox" class="ItemSent DVD" aria-label="${data.transactionID}"${dvdChecked}>
                 <span class="slider-sm round"></span>
             </label>`;
     }

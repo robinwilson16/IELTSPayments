@@ -1,1 +1,6 @@
-﻿<input type="hidden" id="TransactionID" />
+﻿@using IELTSPayments.Models
+@using Microsoft.Extensions.Options
+@inject IOptions<SystemSettings> ApplicationSettings
+
+<input type="hidden" id="TransactionID" />
+<input type="hidden" id="MaxRecords" value="@ApplicationSettings.Value.MaxRecords" />
