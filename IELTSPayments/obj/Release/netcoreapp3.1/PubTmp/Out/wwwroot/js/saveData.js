@@ -1,7 +1,11 @@
 ﻿async function saveItemSentStatus(transactionID, itemType, isItemSent) {
     return new Promise(resolve => {
         var antiForgeryTokenID = $("#AntiForgeryTokenID").val();
-        let dataToLoad = `/Transactions/UpdateStatus/${transactionID}`;
+        let rootPath = $("#RootPath").val();
+        if (rootPath == null) {
+            rootPath = ``;
+        }
+        let dataToLoad = `${rootPath}/Transactions/UpdateStatus/${transactionID}`;
 
         let bookSent = null;
         let DVDSent = null;
@@ -30,7 +34,7 @@
                 xhr.setRequestHeader("RequestVerificationToken", antiForgeryTokenID);
             },
             success: function (data) {
-                var audio = new Audio("/sounds/confirm.wav");
+                var audio = new Audio(`${rootPath}/sounds/confirm.wav`);
                 audio.play();
                 console.log(`${itemType} successfully recorded as having ${itemSentDesc}" for transaction "${transactionID}"`);
                 resolve(1);

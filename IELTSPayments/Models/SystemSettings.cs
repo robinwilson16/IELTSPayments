@@ -23,5 +23,7 @@ namespace IELTSPayments.Models
         [Display(Name = "System Version Number")]
         public string Version { get; set; }
         public int MaxRecords { get; set; }
+
+        public string RootPath { get; set; }
     }
 }

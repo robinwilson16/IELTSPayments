@@ -10,9 +10,11 @@ using IELTSPayments.Data;
 using IELTSPayments.Models;
 using IELTSPayments.Shared;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IELTSPayments.Pages.Transactions
 {
+    [Authorize(Roles = "IELTS Payments")]
     public class UpdateStatusModel : PageModel
     {
         private readonly IELTSPayments.Data.ApplicationDbContext _context;

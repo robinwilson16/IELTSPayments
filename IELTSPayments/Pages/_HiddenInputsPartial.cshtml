@@ -2,5 +2,6 @@
 @using Microsoft.Extensions.Options
 @inject IOptions<SystemSettings> ApplicationSettings
 
+<input type="hidden" id="RootPath" value="@ApplicationSettings.Value.RootPath" />
 <input type="hidden" id="TransactionID" />
 <input type="hidden" id="MaxRecords" value="@ApplicationSettings.Value.MaxRecords" />

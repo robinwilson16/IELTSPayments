@@ -12,6 +12,12 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	--DECLARE @TransactionID INT = 102320
+ --   DECLARE @IsBookSent BIT = NULL
+ --   DECLARE @IsDVDSent BIT = 0
+	--DECLARE @UserName VARCHAR(200) = 'r.wilson'
+
+
     PRINT 
 		'Line To Update - '
 		+ ' User Name: ' + @UserName + ';' 
@@ -92,7 +98,7 @@ BEGIN
 			@ExistingAuditTrailID = AUD.audit_trail_id
 		FROM activa.payments.dbo.email_audit_trail_tbl AUD
 		WHERE
-			AUD.at_primary_key = 101778
+			AUD.at_primary_key = @TransactionID
 			AND AUD.at_new_value = 'MockTest' --DVD
 		
 		PRINT 'Existing DVD Audit Trail ID: ' + CAST ( @ExistingAuditTrailID AS VARCHAR(50) )

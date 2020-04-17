@@ -3,7 +3,11 @@
 //Load data in when model is displayed
 $("#PaymentsModal").on("shown.bs.modal", function () {
     let transactionID = $("#TransactionID").val();
-    let dataToLoad = `/Transactions/Details/${transactionID}`;
+    let rootPath = $("#RootPath").val();
+    if (rootPath == null) {
+        rootPath = ``;
+    }
+    let dataToLoad = `${rootPath}/Transactions/Details/${transactionID}`;
 
     $.get(dataToLoad, function (data) {
 
@@ -36,7 +40,11 @@ $(".SubmitOnEnter").keyup(function (event) {
 });
 
 $(".SearchTransactions").click(function (event) {
-    let dataToLoad = `/Transactions?handler=Json`;
+    let rootPath = $("#RootPath").val();
+    if (rootPath == null) {
+        rootPath = ``;
+    }
+    let dataToLoad = `${rootPath}/Transactions?handler=Json`;
     let reportType = $("#ReportType").val();
     let britishCouncilRef = $("#BritishCouncilRef").val();
     let email = $("#Email").val();
@@ -88,6 +96,10 @@ $(function () {
     //});
 
     //var searchParams = $("#FilterQuery").val();
+    var rootPath = $("#RootPath").val();
+    if (rootPath == null) {
+        rootPath = ``;
+    }
 
     TransactionListDT = $('#TransactionList').DataTable({
         dom: '<"row"<"col-md"l><"col-md"f>>rt<"row"<"col-md"ip><"col-md text-right"B>>',
@@ -143,9 +155,9 @@ $(function () {
         deferRender: true,
         scroller: true,
         scrollY: 280,
-        //ajax: { url: "/Transactions/?handler=Json&search=" + searchParams, dataSrc: "" },
+        //ajax: { url: `${rootPath}/Transactions/?handler=Json&search=${searchParams}`, dataSrc: "" },
         ajax: {
-            url: "/Transactions/?handler=Json",
+            url: `${rootPath}/Transactions/?handler=Json`,
             dataSrc: ""
         },
         columns: [

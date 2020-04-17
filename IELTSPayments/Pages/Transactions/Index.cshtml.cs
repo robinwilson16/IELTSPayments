@@ -11,9 +11,11 @@ using IELTSPayments.Shared;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IELTSPayments.Pages.Transactions
 {
+    [Authorize(Roles = "IELTS Payments")]
     public class IndexModel : PageModel
     {
         private readonly IELTSPayments.Data.ApplicationDbContext _context;
