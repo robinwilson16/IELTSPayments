@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IELTSPayments.Data;
 using IELTSPayments.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IELTSPayments.Pages.Transactions
 {
+    [Authorize(Roles = "IELTS Payments")]
     public class DeleteModel : PageModel
     {
         private readonly IELTSPayments.Data.ApplicationDbContext _context;

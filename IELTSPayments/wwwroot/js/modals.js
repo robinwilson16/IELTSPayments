@@ -125,7 +125,11 @@ function doErrorModal(title, text, size, id) {
         $(this).remove();
     });
 
-    var audio = new Audio("/sounds/error.wav");
+    let rootPath = $("#RootPath").val();
+    if (rootPath == null) {
+        rootPath = ``;
+    }
+    var audio = new Audio(`${rootPath}/sounds/error.wav`);
     audio.play();
 }
 

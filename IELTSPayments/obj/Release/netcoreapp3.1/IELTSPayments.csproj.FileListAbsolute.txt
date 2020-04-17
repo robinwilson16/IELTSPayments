@@ -161,3 +161,6 @@ C:\Users\r.wilson\OneDrive - Robin Digital\Documents\FEA\West London College\Net
 C:\Users\r.wilson\OneDrive - Robin Digital\Documents\FEA\West London College\Net Core\v3.1\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.1\IELTSPayments.csproj.CopyComplete
 C:\Users\r.wilson\OneDrive - Robin Digital\Documents\FEA\West London College\Net Core\v3.1\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.1\IELTSPayments.dll
 C:\Users\r.wilson\OneDrive - Robin Digital\Documents\FEA\West London College\Net Core\v3.1\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.1\IELTSPayments.pdb
+C:\Users\r.wilson\OneDrive - Robin Digital\Documents\FEA\West London College\Net Core\v3.1\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.1\IELTSPayments.csproj.CoreCompileInputs.cache
+C:\Users\r.wilson\OneDrive - Robin Digital\Documents\FEA\West London College\Net Core\v3.1\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.1\IELTSPayments.genruntimeconfig.cache
+C:\Users\r.wilson\OneDrive - Robin Digital\Documents\FEA\West London College\Net Core\v3.1\IELTSPayments\IELTSPayments\obj\Release\netcoreapp3.1\Razor\Pages\AccessDenied.cshtml.g.cs

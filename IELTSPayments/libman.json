@@ -23,7 +23,7 @@
       "destination": "wwwroot/lib/moment.js/"
     },
     {
-      "library": "marked@0.8.0",
+      "library": "marked@0.7.0",
       "destination": "wwwroot/lib/marked/"
     }
   ]

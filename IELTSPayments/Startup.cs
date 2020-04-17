@@ -5,11 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using IELTSPayments.Data;
 using IELTSPayments.Models;
+using IELTSPayments.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,6 +48,9 @@ namespace IELTSPayments
             //Enable configuration options directly in _Layout
             services.Configure<SystemSettings>
                 (Configuration.GetSection("System"));
+
+            //Required for checking Active Directory Group Membership
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +62,19 @@ namespace IELTSPayments
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                //app.UseExceptionHandler("/Error");
+
+                app.Use(async (context, next) =>
+                {
+                    await next.Invoke();
+
+                    //After going down the pipeline check if we 404'd. 
+                    if (context.Response.StatusCode == StatusCodes.Status403Forbidden)
+                    {
+                        context.Response.Redirect("/AccessDenied");
+                    }
+                });
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
