@@ -42,7 +42,7 @@ namespace IELTSPayments
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddRazorPages();
 
             //Enable configuration options directly in _Layout
@@ -59,6 +59,7 @@ namespace IELTSPayments
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
