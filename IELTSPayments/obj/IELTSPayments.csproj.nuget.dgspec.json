@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {}
+    "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {}
   },
   "projects": {
-    "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {
+    "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
+        "projectUniqueName": "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
         "projectName": "IELTSPayments",
-        "projectPath": "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
-        "packagesPath": "C:\\Users\\r.wilson\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\r.wilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\obj\\",
+        "projectPath": "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
+        "packagesPath": "C:\\Users\\r.wilson2\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\r.wilson\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\r.wilson2\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -42,25 +42,25 @@
           "dependencies": {
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
@@ -93,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
