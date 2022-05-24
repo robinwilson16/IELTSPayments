@@ -9,6 +9,6 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>IELTSPayments.Data.ApplicationDbContext</WebStackScaffolding_DbContextTypeFullName>
-    <NameOfLastUsedPublishProfile>ExternalServer</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\mis.rwilson\OneDrive - Robin Digital\Documents\FEA\West London College\Net Core\v6.0\IELTSPayments\IELTSPayments\Properties\PublishProfiles\ExternalServer.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

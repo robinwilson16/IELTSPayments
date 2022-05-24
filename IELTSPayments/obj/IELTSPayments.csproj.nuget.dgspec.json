@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {}
+    "C:\\Users\\mis.rwilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v6.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {}
   },
   "projects": {
-    "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {
+    "C:\\Users\\mis.rwilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v6.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
+        "projectUniqueName": "C:\\Users\\mis.rwilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v6.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
         "projectName": "IELTSPayments",
-        "projectPath": "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
-        "packagesPath": "C:\\Users\\r.wilson2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\r.wilson2\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v5.0\\IELTSPayments\\IELTSPayments\\obj\\",
+        "projectPath": "C:\\Users\\mis.rwilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v6.0\\IELTSPayments\\IELTSPayments\\IELTSPayments.csproj",
+        "packagesPath": "C:\\Users\\mis.rwilson\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mis.rwilson\\OneDrive - Robin Digital\\Documents\\FEA\\West London College\\Net Core\\v6.0\\IELTSPayments\\IELTSPayments\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\r.wilson2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mis.rwilson\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -37,42 +37,42 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[6.0.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.Web.LibraryManager.Build": {
               "target": "Package",
-              "version": "[2.1.113, )"
+              "version": "[2.1.161, )"
             }
           },
           "imports": [
@@ -93,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
